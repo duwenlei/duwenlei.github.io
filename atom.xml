@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pk52eh.coding-pages.com</id>
     <title>DWL</title>
-    <updated>2020-03-28T06:30:13.520Z</updated>
+    <updated>2020-06-09T07:28:17.844Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pk52eh.coding-pages.com"/>
     <link rel="self" href="https://pk52eh.coding-pages.com/atom.xml"/>
@@ -10,6 +10,145 @@
     <logo>https://pk52eh.coding-pages.com/images/avatar.png</logo>
     <icon>https://pk52eh.coding-pages.com/favicon.ico</icon>
     <rights>All rights reserved 2020, DWL</rights>
+    <entry>
+        <title type="html"><![CDATA[Oracle 生成汉字拼音首字母函数]]></title>
+        <id>https://pk52eh.coding-pages.com/post/oracle-sheng-cheng-han-zi-pin-yin-shou-zi-mu-han-shu/</id>
+        <link href="https://pk52eh.coding-pages.com/post/oracle-sheng-cheng-han-zi-pin-yin-shou-zi-mu-han-shu/">
+        </link>
+        <updated>2020-06-09T07:04:20.000Z</updated>
+        <content type="html"><![CDATA[<p>项目中需要把一个商品的名称的拼音首字母保存到一个字段中，以便在搜索时加快搜索效率，不用记过多的信息，打字更快。</p>
+<p>从网上查到了一个非常好用的函数，这个函数输入是汉字字符串，也可以是单个的汉字，输出则是输入汉字的拼音首字母。</p>
+<p>另外这个函数在运行时对 Oracle 的环境是有所要求的，我环境的字符集为 <code>ZHS16GBK</code>，不能保证在其他字符集下也能正常工作。</p>
+<pre><code class="language-sql">/* 生成汉字拼音首字母函数 */
+CREATE OR REPLACE FUNCTION GET_PY(P_NAME IN VARCHAR2)
+    RETURN VARCHAR2
+AS
+    V_COMPARE VARCHAR2(100);
+    V_RETURN  VARCHAR2(4000);
+BEGIN
+    DECLARE
+        FUNCTION F_NLSSORT(P_WORD IN VARCHAR2)
+            RETURN VARCHAR2
+        AS
+        BEGIN
+            RETURN NLSSORT(P_WORD, 'NLS_SORT=SCHINESE_PINYIN_M');
+        END;
+    BEGIN
+        FOR I IN 1 .. LENGTH(P_NAME)
+            LOOP
+                V_COMPARE := F_NLSSORT(SUBSTR(P_NAME, I, 1));
+
+                IF V_COMPARE &gt;= F_NLSSORT('吖')
+                    AND V_COMPARE &lt;= F_NLSSORT('驁')
+                THEN
+                    V_RETURN := V_RETURN || 'A';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('八')
+                    AND V_COMPARE &lt;= F_NLSSORT('簿')
+                THEN
+                    V_RETURN := V_RETURN || 'B';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('嚓')
+                    AND V_COMPARE &lt;= F_NLSSORT('錯')
+                THEN
+                    V_RETURN := V_RETURN || 'C';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('咑')
+                    AND V_COMPARE &lt;= F_NLSSORT('鵽')
+                THEN
+                    V_RETURN := V_RETURN || 'D';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('妸')
+                    AND V_COMPARE &lt;= F_NLSSORT('樲')
+                THEN
+                    V_RETURN := V_RETURN || 'E';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('发')
+                    AND V_COMPARE &lt;= F_NLSSORT('猤')
+                THEN
+                    V_RETURN := V_RETURN || 'F';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('旮')
+                    AND V_COMPARE &lt;= F_NLSSORT('腂')
+                THEN
+                    V_RETURN := V_RETURN || 'G';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('妎')
+                    AND V_COMPARE &lt;= F_NLSSORT('夻')
+                THEN
+                    V_RETURN := V_RETURN || 'H';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('丌')
+                    AND V_COMPARE &lt;= F_NLSSORT('攈')
+                THEN
+                    V_RETURN := V_RETURN || 'J';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('咔')
+                    AND V_COMPARE &lt;= F_NLSSORT('穒')
+                THEN
+                    V_RETURN := V_RETURN || 'K';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('垃')
+                    AND V_COMPARE &lt;= F_NLSSORT('擽')
+                THEN
+                    V_RETURN := V_RETURN || 'L';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('嘸')
+                    AND V_COMPARE &lt;= F_NLSSORT('椧')
+                THEN
+                    V_RETURN := V_RETURN || 'M';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('拏')
+                    AND V_COMPARE &lt;= F_NLSSORT('瘧')
+                THEN
+                    V_RETURN := V_RETURN || 'N';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('筽')
+                    AND V_COMPARE &lt;= F_NLSSORT('漚')
+                THEN
+                    V_RETURN := V_RETURN || 'O';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('妑')
+                    AND V_COMPARE &lt;= F_NLSSORT('曝')
+                THEN
+                    V_RETURN := V_RETURN || 'P';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('七')
+                    AND V_COMPARE &lt;= F_NLSSORT('裠')
+                THEN
+                    V_RETURN := V_RETURN || 'Q';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('亽')
+                    AND V_COMPARE &lt;= F_NLSSORT('鶸')
+                THEN
+                    V_RETURN := V_RETURN || 'R';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('仨')
+                    AND V_COMPARE &lt;= F_NLSSORT('蜶')
+                THEN
+                    V_RETURN := V_RETURN || 'S';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('侤')
+                    AND V_COMPARE &lt;= F_NLSSORT('籜')
+                THEN
+                    V_RETURN := V_RETURN || 'T';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('屲')
+                    AND V_COMPARE &lt;= F_NLSSORT('鶩')
+                THEN
+                    V_RETURN := V_RETURN || 'W';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('夕')
+                    AND V_COMPARE &lt;= F_NLSSORT('鑂')
+                THEN
+                    V_RETURN := V_RETURN || 'X';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('丫')
+                    AND V_COMPARE &lt;= F_NLSSORT('韻')
+                THEN
+                    V_RETURN := V_RETURN || 'Y';
+                ELSIF V_COMPARE &gt;= F_NLSSORT('帀')
+                    AND V_COMPARE &lt;= F_NLSSORT('咗')
+                THEN
+                    V_RETURN := V_RETURN || 'Z';
+                END IF;
+            END LOOP;
+
+        RETURN V_RETURN;
+    END;
+END;
+</code></pre>
+<p>对于线上环境，得到了拼音首字母还需要更新到数据库相应的字段中，以下函数可以做到</p>
+<pre><code class="language-sql">begin
+    for item in (select * from GOODS where CODE is null)
+        loop
+        update GOODS set CODE=GET_PY(item.NAME) where GOODS_ID=item.GOODS_ID;
+        end loop;
+end;
+</code></pre>
+<p><code>COMMIT</code><br>
+<img src="https://pk52eh.coding-pages.com/post-images/1591687445148.jpg" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[春天]]></title>
         <id>https://pk52eh.coding-pages.com/post/chun-tian/</id>
