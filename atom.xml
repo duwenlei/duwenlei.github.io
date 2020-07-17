@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pk52eh.coding-pages.com</id>
     <title>DWL</title>
-    <updated>2020-06-09T07:28:17.844Z</updated>
+    <updated>2020-07-17T10:14:10.316Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pk52eh.coding-pages.com"/>
     <link rel="self" href="https://pk52eh.coding-pages.com/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>https://pk52eh.coding-pages.com/images/avatar.png</logo>
     <icon>https://pk52eh.coding-pages.com/favicon.ico</icon>
     <rights>All rights reserved 2020, DWL</rights>
+    <entry>
+        <title type="html"><![CDATA[微信小程序应用服务器设置]]></title>
+        <id>https://pk52eh.coding-pages.com/post/wei-xin-xiao-cheng-xu-ying-yong-fu-wu-qi-she-zhi/</id>
+        <link href="https://pk52eh.coding-pages.com/post/wei-xin-xiao-cheng-xu-ying-yong-fu-wu-qi-she-zhi/">
+        </link>
+        <updated>2020-07-17T10:08:47.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://pk52eh.coding-pages.com/post-images/1594980759208.jpeg" alt="" loading="lazy"></figure>
+<h2 id="一-对于-ssl-证书相关通知">一、对于 SSL 证书相关通知</h2>
+<p>Android X5 内核计划将于 8 月份开始升级到 Chrome 57 内核（目前 Chrome 53），升级到 Chrome 57 内核后，会对 WoSign CA Free SSL/StartCom 证书进行部分限制。对于小程序来说，如果储存图片资源的服务器使用了上述证书，将会影响图片的正常加载。预计 Chrome 以后版本会再加大对 WoSign CA Free SSL/StartCom 证书限制，我们建议开发者提前更换其它可信证书。</p>
+<p>Chrome 56/57 版本对 WoSign CA Free SSL/StartCom 证书限制措施如下：</p>
+<ol>
+<li>Chrome 56 开始停止信任 2016 年 10 月 21 日后签发的 WoSign CA Free SSL/StartCom 证书；</li>
+<li>Chrome 57 进一步扩大限制范围，Alexa 排名一百万外的网站都不能使用 WoSign CA Free SSL/StartCom 证书，无论证书何时签发。</li>
+</ol>
+<p>详细请参考 Google 官方说明。</p>
+<p>附：如何检测网站是否使用了 WoSign/StartCom</p>
+<ol>
+<li>使用最新版本的 Chrome 打开图片链接，右键 -&gt; 检查，切换到「Security」页卡，点击「View certificate」；</li>
+<li>检查证书的签发机构是否在限制范围内。</li>
+</ol>
+<p>最后一次编辑于  2017-07-06</p>
+<h2 id="二-检查-ssl-是否合格">二、检查 SSL 是否合格</h2>
+<p>https://myssl.com/ 通过这个网址进行检查</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Oracle 生成汉字拼音首字母函数]]></title>
         <id>https://pk52eh.coding-pages.com/post/oracle-sheng-cheng-han-zi-pin-yin-shou-zi-mu-han-shu/</id>
